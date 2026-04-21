@@ -22,14 +22,11 @@ if prompt := st.chat_input("Ask HK CORE anything..."):
 
     with st.chat_message("assistant"):
         headers = {"Authorization": f"Bearer {API_KEY}"}
-        data = {
-            "model": "openrouter/auto",
-            "messages": st.session_state.messages
-        }
+        data = {"model": "openrouter/auto", "messages": st.session_state.messages}
         try:
             res = requests.post(URL, headers=headers, json=data).json()
             ans = res['choices'][0]['message']['content']
             st.markdown(ans)
             st.session_state.messages.append({"role": "assistant", "content": ans})
         except:
-            st.error("Error: Check your API Key in Render Environment settings.")
+            st.error("Check your API Key in Render Environment settings.")
